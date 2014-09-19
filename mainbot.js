@@ -11,21 +11,22 @@ var processLine = function(line)
 {
 	if (line == "save")
 	{
-		fs.truncate(process.argv[4], 0, function(){console.log('Done truncating file!')});
-		for (var i = 0; i < players.length; i++)
-		{
-			fs.appendFile("./playerList.txt", players[i], function(err) {
-				if(err) {
-					console.log(err);
-				} else {
-					console.log("New player was added!");
-				}
-			}); 		
-		}
+		fs.truncate(process.argv[4], 0, function(){console.log('Done truncating file!')
+			for (var i = 0; i < players.length; i++)
+			{
+				fs.appendFile("./playerList.txt", players[i] + "\n", function(err) {
+					if(err) {
+						console.log(err);
+					} else {
+						console.log("New player was added!");
+					}
+				}); 		
+			}});
 	}
-	else if (line == "fight")
+	else if (line.indexOf("fight") > -1)
 	{
-		setTimeout(function(){sendFight()}, (0 * 60000));	
+		console.log("Next fight in " + line.match(/\d+/)[0]);
+		setTimeout(function(){sendFight()}, (line.match(/\d+/)[0] * 60000));	
 	}
 }
 
