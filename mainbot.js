@@ -9,12 +9,12 @@ var readLine = require('readline');
 
 var processLine = function(line)
 {
-	if (line.indexOf("!exit") > -1)
+	if (line == "save")
 	{
 		fs.truncate(process.argv[4], 0, function(){console.log('Done truncating file!')});
 		for (var i = 0; i < players.length; i++)
 		{
-			fs.appendFile("playerList.txt", players[i], function(err) {
+			fs.appendFile("./playerList.txt", players[i], function(err) {
 				if(err) {
 					console.log(err);
 				} else {
@@ -23,8 +23,10 @@ var processLine = function(line)
 			}); 		
 		}
 	}
-	console.log("Exiting now...");
-	process.exit(0);
+	else if (line == "fight")
+	{
+		setTimeout(function(){sendFight()}, (0 * 60000));	
+	}
 }
 
 var rl = readLine.createInterface({
@@ -155,6 +157,7 @@ bot.on('message', function(from, message)
 				console.log("Player removed");
 			}
 		}
+		bot.sendMessage(from, "You have been removed from the notification list!");
 	}
 	else
 	{
