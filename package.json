@@ -1,0 +1,25 @@
+{
+  "name": "nerfbot",
+  "version": "0.0.0",
+  "description": "",
+  "main": "mainbot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Antonhansel/NerfBotFighter.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Antonhansel/NerfBotFighter/issues"
+  },
+  "homepage": "https://github.com/Antonhansel/NerfBotFighter",
+  "dependencies": {
+    "chance": "^0.6.1",
+    "fs": "0.0.2",
+    "hangouts-bot": "^0.1.0",
+    "readline": "0.0.3"
+  }
+}
