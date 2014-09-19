@@ -20,6 +20,7 @@
     "chance": "^0.6.1",
     "fs": "0.0.2",
     "hangouts-bot": "^0.1.0",
+    "node-stringprep": "^0.5.4",
     "readline": "0.0.3"
   }
 }
