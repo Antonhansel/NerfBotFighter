@@ -6,8 +6,8 @@ A random time battle is set at startup. When battle starts, a notification with 
 After the battle, a new random time battle is set.
 
 How to use:
-  >npm install
-  >node mainbot.js hangoutUsername hangoutPassword pathToRegisteredPlayers timeOfBattle
+  npm install
+  node mainbot.js hangoutUsername hangoutPassword pathToRegisteredPlayers timeOfBattle
 
 Available commands from hangout:
   -!nextbattle
@@ -21,7 +21,6 @@ Available commands from prompt:
   -save (save all player registered)
 
 TODO:
-  -Auto save
-  -TimeZone usage
-  -fix prompt command "fight"
-  
+  .Auto save
+  .TimeZone usage
+  .fix prompt command "fight"
