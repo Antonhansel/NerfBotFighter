@@ -14,15 +14,9 @@ var players = [];
 var fs = require('fs');
 var readLine = require('readline');
 
-var options = {
-	host: 'http://nerf-bot.herokuapp.com',
-	port: 80,
-	path: '/update'
-};
-
 var refreshStatus = function()
 {
-	http.get(options, function(res) {
+	http.get('nerf-bot.herokuapp.com/update', function(res) {
 		console.log("Got response: " + res.statusCode);
 	}).on('error', function(e) {
 		console.log("Got error: " + e.message);
@@ -30,7 +24,7 @@ var refreshStatus = function()
 	setTimeout(function(){refreshStatus()}, 30 * 60000);
 }
 
-setTimeout(function(){refreshStatus()}, 30 * 60000);
+setTimeout(function(){refreshStatus()}, 0.5 * 60000);
 
 var processLine = function(line)
 {
@@ -129,11 +123,11 @@ var endFight = function()
 	newDateObj = new Date(date.getTime() + (time + 120) *60000);
 	setTimeout(function(){sendFight()}, (time * 60000));	
 	messageToSend = "Next battle at " + newDateObj + " :)!";
-console.log("STOP FIGHTING, NOW! Next fight in " + time + " minutes");
-for (var i = 0; i < players.length; i++)
-{
-	bot.sendMessage(players[i], "SPOT FIGHTING YOU PIECE OF GARBARGE! NEXT FIGHT IN " + time + " MINUTES");
-}
+	console.log("STOP FIGHTING, NOW! Next fight in " + time + " minutes");
+	for (var i = 0; i < players.length; i++)
+	{
+		bot.sendMessage(players[i], "SPOT FIGHTING YOU PIECE OF GARBARGE! NEXT FIGHT IN " + time + " MINUTES");
+	}
 }
 
 var sendFight = function()
