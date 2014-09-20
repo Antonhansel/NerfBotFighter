@@ -5,6 +5,7 @@ chance = new Chance();
 var express = require('express');
 var app = express();
 app.listen(process.env.PORT || 5000);
+console.log("API now listening on port " + process.env.PORT);
 
 var messageToSend;
 var fightTime = process.argv[5];
