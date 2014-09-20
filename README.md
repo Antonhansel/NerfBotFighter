@@ -4,4 +4,5 @@
 <p><strong>How to use:</strong><br />-npm install<br />-node mainbot.js hangoutUsername hangoutPassword pathToRegisteredPlayers timeOfBattle</p>
 <p>Available commands from hangout:<br />-!nextbattle -&nbsp;Returns next battle time.<br />-!joinfight - Add&nbsp;yourself into notification list.<br />-!leavefight -&nbsp;Remove yourself from notification list.</p>
 <p>Available commands from prompt:<br />-save - save all players from notification list.</p>
-<p><strong>TODO:</strong><br />-&gt;Auto save<br />-&gt;TimeZone usage<br />-&gt;fix prompt command "fight"</p>
+<p><strong>TODO:</strong></p>
+<p>-&gt;Auto save - DONE<br /> -&gt;Adding autoping to bypass heroku auto idling - DONE<br />-&gt;TimeZone usage<br />-&gt;fix prompt command "fight"</p>
