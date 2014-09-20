@@ -62,7 +62,7 @@ var rl = readLine.createInterface({
 	output: process.stdout
 });
 
-setTimeout(function(){processLine(line)}, 5 * 60000);
+setTimeout(function(){processLine("save")}, 5 * 60000);
 
 rl.on('line', function(line){
 	processLine(line);
