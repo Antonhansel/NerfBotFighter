@@ -2,6 +2,10 @@ var hangoutsBot = require("hangouts-bot");
 var bot = new hangoutsBot(process.argv[2], process.argv[3]);
 var Chance = require('chance'),
 chance = new Chance();
+
+var moment = require('moment-timezone');
+console.log(moment.tz("Europe/Paris").format());
+
 var fightTime = process.argv[5];
 var players = [];
 var fs = require('fs');
