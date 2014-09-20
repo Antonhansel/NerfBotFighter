@@ -4,7 +4,7 @@ var Chance = require('chance'),
 chance = new Chance();
 
 var moment = require('moment-timezone');
-console.log(moment.tz("Europe/Paris").format());
+console.log(moment.tz("Europe/Paris").format("Z z"));
 
 var fightTime = process.argv[5];
 var players = [];
