@@ -4,7 +4,7 @@ var Chance = require('chance'),
 chance = new Chance();
 
 var moment = require('moment-timezone');
-console.log(moment.tz("Europe/Paris").format("Z z"));
+console.log(moment.tz("Europe/Paris").format("hh:mm"));
 
 var fightTime = process.argv[5];
 var players = [];
@@ -50,7 +50,7 @@ var getFightTime = function()
 
 var time = getFightTime();
 var date = new Date();
-var newDateObj = new Date(date.getTime() + time *60000);
+var newDateObj = new Date(date.getTime() + (time + 120) *60000);
 setTimeout(function(){sendFight()}, (time * 60000));
 
 function addToArray(data)
@@ -99,8 +99,9 @@ bot.on('online', function() {
 var endFight = function()
 {
 	time = getFightTime();
-	newDateObj = new Date(date.getTime() + time *60000);
-	setTimeout(function(){endFight()}, (time * 60000));	
+	date = new Date();
+	newDateObj = new Date(date.getTime() + (time + 120) *60000);
+	setTimeout(function(){sendFight()}, (time * 60000));	
 	console.log("STOP FIGHTING, NOW! Next fight in " + time + " minutes");
 	for (var i = 0; i < players.length; i++)
 	{
@@ -111,7 +112,6 @@ var endFight = function()
 var sendFight = function()
 {
 	time = fightTime;
-	newDateObj = new Date(date.getTime() + time *60000);
 	setTimeout(function(){endFight()}, (time * 60000));
 	console.log("FIGHT STARTED, " + time + " minutes left");
 	for (var i = 0; i < players.length; i++)
