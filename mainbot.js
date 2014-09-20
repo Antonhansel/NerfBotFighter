@@ -2,10 +2,11 @@ var hangoutsBot = require("hangouts-bot");
 var bot = new hangoutsBot(process.argv[2], process.argv[3]);
 var Chance = require('chance'),
 chance = new Chance();
+var express = require('express');
+var app = express();
+app.listen(process.env.PORT || 5000);
 
-var moment = require('moment-timezone');
-console.log(moment.tz("Europe/Paris").format("hh:mm"));
-
+var messageToSend;
 var fightTime = process.argv[5];
 var players = [];
 var fs = require('fs');
@@ -51,6 +52,7 @@ var getFightTime = function()
 var time = getFightTime();
 var date = new Date();
 var newDateObj = new Date(date.getTime() + (time + 120) *60000);
+messageToSend = "Next battle at " + newDateObj + " :)!";
 setTimeout(function(){sendFight()}, (time * 60000));
 
 function addToArray(data)
@@ -102,6 +104,7 @@ var endFight = function()
 	date = new Date();
 	newDateObj = new Date(date.getTime() + (time + 120) *60000);
 	setTimeout(function(){sendFight()}, (time * 60000));	
+	messageToSend = "Next battle at " + newDateObj + " :)!";
 	console.log("STOP FIGHTING, NOW! Next fight in " + time + " minutes");
 	for (var i = 0; i < players.length; i++)
 	{
@@ -112,6 +115,7 @@ var endFight = function()
 var sendFight = function()
 {
 	time = fightTime;
+	messageToSend = "BATTLE IN PROGRESS!";
 	setTimeout(function(){endFight()}, (time * 60000));
 	console.log("FIGHT STARTED, " + time + " minutes left");
 	for (var i = 0; i < players.length; i++)
@@ -169,6 +173,12 @@ bot.on('message', function(from, message)
 		console.log("Unrecognized message");
 		bot.sendMessage(from, 'Unrecognized message: available commands are:\n!nextbattle - show time until next battle\n!joinfight - be notified for the next fight\n!leavefight - quit fight notifications\nA question? A bug? Email antoninribeaud@gmail.com');
 	}
+});
+
+
+app.get('/update', function(req, res)
+{
+  res.send(messageToSend);
 });
 
 function msToTime(s) {
