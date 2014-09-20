@@ -6,12 +6,31 @@ var express = require('express');
 var app = express();
 app.listen(process.env.PORT || 5000);
 console.log("API now listening on port " + process.env.PORT);
+var http = require('http');
 
 var messageToSend;
 var fightTime = process.argv[5];
 var players = [];
 var fs = require('fs');
 var readLine = require('readline');
+
+var options = {
+	host: 'http://nerf-bot.herokuapp.com',
+	port: 80,
+	path: '/update'
+};
+
+var refreshStatus = function()
+{
+	http.get(options, function(res) {
+		console.log("Got response: " + res.statusCode);
+	}).on('error', function(e) {
+		console.log("Got error: " + e.message);
+	});
+	setTimeout(function(){refreshStatus()}, 30 * 60000);
+}
+
+setTimeout(function(){refreshStatus()}, 30 * 60000);
 
 var processLine = function(line)
 {
@@ -27,7 +46,9 @@ var processLine = function(line)
 						console.log("New player was added!");
 					}
 				}); 		
-			}});
+			}
+			setTimeout(function(){processLine(line)}, 5 * 60000);
+		});
 	}
 	else if (line.indexOf("fight") > -1)
 	{
@@ -40,6 +61,8 @@ var rl = readLine.createInterface({
 	input: process.stdin,
 	output: process.stdout
 });
+
+setTimeout(function(){processLine(line)}, 5 * 60000);
 
 rl.on('line', function(line){
 	processLine(line);
@@ -106,11 +129,11 @@ var endFight = function()
 	newDateObj = new Date(date.getTime() + (time + 120) *60000);
 	setTimeout(function(){sendFight()}, (time * 60000));	
 	messageToSend = "Next battle at " + newDateObj + " :)!";
-	console.log("STOP FIGHTING, NOW! Next fight in " + time + " minutes");
-	for (var i = 0; i < players.length; i++)
-	{
-		bot.sendMessage(players[i], "SPOT FIGHTING YOU PIECE OF GARBARGE! NEXT FIGHT IN " + time + " MINUTES");
-	}
+console.log("STOP FIGHTING, NOW! Next fight in " + time + " minutes");
+for (var i = 0; i < players.length; i++)
+{
+	bot.sendMessage(players[i], "SPOT FIGHTING YOU PIECE OF GARBARGE! NEXT FIGHT IN " + time + " MINUTES");
+}
 }
 
 var sendFight = function()
@@ -179,7 +202,7 @@ bot.on('message', function(from, message)
 
 app.get('/update', function(req, res)
 {
-  res.send(messageToSend);
+	res.send(messageToSend);
 });
 
 function msToTime(s) {
