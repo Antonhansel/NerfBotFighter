@@ -70,7 +70,7 @@ rl.on('line', function(line){
 
 var getFightTime = function()
 {
-	return chance.minute() + chance.minute();
+	return (chance.minute() + chance.minute()) * 2;
 }
 
 var time = getFightTime();
