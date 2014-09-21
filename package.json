@@ -21,8 +21,11 @@
     "express": "^4.9.3",
     "fs": "0.0.2",
     "hangouts-bot": "^0.1.0",
+    "http": "0.0.0",
     "moment-timezone": "^0.2.2",
     "node-stringprep": "^0.5.4",
-    "readline": "0.0.3"
+    "pin": "^0.3.0",
+    "readline": "0.0.3",
+    "url": "^0.10.1"
   }
 }
