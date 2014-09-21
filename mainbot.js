@@ -68,7 +68,7 @@ rl.on('line', function(line){
 
 var getFightTime = function()
 {
-	return (chance.minute() + chance.minute()) * 2;
+	return (chance.minute() + chance.minute()) * 4;
 }
 
 var time = getFightTime();
@@ -193,7 +193,7 @@ bot.on('message', function(from, message)
 	else
 	{
 		console.log("Unrecognized message");
-		bot.sendMessage(from, 'Unrecognized message: available commands are:\n!nextbattle - show time until next battle\n!joinfight - be notified for the next fight\n!leavefight - quit fight notifications\nA question? A bug? Email antoninribeaud@gmail.com');
+		bot.sendMessage(from, 'Unrecognized message, available commands are:\n!nextbattle - show time until next battle\n!joinfight - be notified for the next fight\n!leavefight - quit fight notifications\nA question? A bug? Email antoninribeaud@gmail.com');
 	}
 });
 
