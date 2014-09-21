@@ -6,7 +6,6 @@ var express = require('express');
 var app = express();
 app.listen(process.env.PORT || 5000);
 console.log("API now listening on port " + process.env.PORT);
-var http = require('http');
 
 var messageToSend;
 var fightTime = process.argv[5];
@@ -14,17 +13,16 @@ var players = [];
 var fs = require('fs');
 var readLine = require('readline');
 
-var refreshStatus = function()
-{
-	http.get('nerf-bot.herokuapp.com/update', function(res) {
-		console.log("Got response: " + res.statusCode);
-	}).on('error', function(e) {
-		console.log("Got error: " + e.message);
-	});
-	setTimeout(function(){refreshStatus()}, 30 * 60000);
-}
+var pin = require('pin');
 
-setTimeout(function(){refreshStatus()}, 0.5 * 60000);
+pin('http://nerf-bot.herokuapp.com/update')
+  .interval(200000)
+  .up(function(response) {
+      console.log("Website pinged!");
+   })
+  .down(function(error, response) {
+    console.log(error, "Website pinged!");
+  });
 
 var processLine = function(line)
 {
