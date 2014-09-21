@@ -1,7 +1,6 @@
 var hangoutsBot = require("hangouts-bot");
 var bot = new hangoutsBot(process.argv[2], process.argv[3]);
-var Chance = require('chance'),
-chance = new Chance();
+var Chance = require('chance'), chance = new Chance();
 var express = require('express');
 var app = express();
 app.listen(process.env.PORT || 5000);
@@ -14,31 +13,38 @@ var fs = require('fs');
 var readLine = require('readline');
 
 var pin = require('pin');
-
 pin('http://nerf-bot.herokuapp.com/update')
-  .interval(200000)
-  .up(function(response) {
-      console.log("Website pinged!");
-   })
-  .down(function(error, response) {
-    console.log(error, "Website pinged!");
-  });
+.interval(500000)
+.up(function(response) {
+	console.log("Website pinged!");
+})
+.down(function(error, response) {
+	console.log(error, "Website pinged!");
+});
+
+var playerList;
+var numPlayers = 0;
 
 var processLine = function(line)
 {
 	if (line == "save")
 	{
+		numPlayers = 0;
+		playerList = "";
 		fs.truncate(process.argv[4], 0, function(){console.log('Done truncating file!')
 			for (var i = 0; i < players.length; i++)
 			{
-				fs.appendFile("./playerList.txt", players[i] + "\n", function(err) {
-					if(err) {
-						console.log(err);
-					} else {
-						console.log("New player was added!");
-					}
-				}); 		
+				playerList += players[i] + "\n";
+				console.log("Adding player: " + players[i]);
+				numPlayers++;
 			}
+			fs.appendFile("./playerList.txt", playerList, function(err) {
+				if(err) {
+					console.log(err);
+				} else {
+					console.log(numPlayers + " players were added to file!");
+				}
+			});
 			setTimeout(function(){processLine(line)}, 5 * 60000);
 		});
 	}
@@ -121,11 +127,11 @@ var endFight = function()
 	newDateObj = new Date(date.getTime() + (time + 120) *60000);
 	setTimeout(function(){sendFight()}, (time * 60000));	
 	messageToSend = "Next battle at " + newDateObj + " :)!";
-	console.log("STOP FIGHTING, NOW! Next fight in " + time + " minutes");
-	for (var i = 0; i < players.length; i++)
-	{
-		bot.sendMessage(players[i], "SPOT FIGHTING YOU PIECE OF GARBARGE! NEXT FIGHT IN " + time + " MINUTES");
-	}
+console.log("STOP FIGHTING, NOW! Next fight in " + time + " minutes");
+for (var i = 0; i < players.length; i++)
+{
+	bot.sendMessage(players[i], "SPOT FIGHTING YOU PIECE OF GARBARGE! NEXT FIGHT IN " + time + " MINUTES");
+}
 }
 
 var sendFight = function()
@@ -191,18 +197,15 @@ bot.on('message', function(from, message)
 	}
 });
 
-
 app.get('/update', function(req, res)
 {
 	res.send(messageToSend);
 });
 
 function msToTime(s) {
-
 	function addZ(n) {
 		return (n<10? '0':'') + n;
 	}
-
 	var ms = s % 1000;
 	s = (s - ms) / 1000;
 	var secs = s % 60;
