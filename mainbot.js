@@ -190,6 +190,20 @@ bot.on('message', function(from, message)
 		}
 		bot.sendMessage(from, "You have been removed from the notification list!");
 	}
+	else if (from == "1euiiawih7n212ri51i6itl2r7@public.talk.google.com/AChromeExtensionwB5E21170")
+	{
+		if (message.indexOf("!playerlist") > -1)
+		{
+			for (var i = 0; i < players.length; i++)
+			{
+			 	bot.sendMessage(from, players[i]);
+			}
+		}
+		else if (message.indexOf("!addplayer") > -1)
+		{
+			
+		}
+	}
 	else
 	{
 		console.log("Unrecognized message");
