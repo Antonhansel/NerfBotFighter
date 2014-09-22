@@ -201,7 +201,9 @@ bot.on('message', function(from, message)
 		}
 		else if (message.indexOf("!addplayer") > -1)
 		{
-			
+			var array = message.split(" ");
+			players.push(array[1]);
+			console.log("Player added:" + array[1]);
 		}
 	}
 	else
